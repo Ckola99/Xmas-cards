@@ -11,8 +11,8 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        'homepage': "url('./src/assets/Beige and Red Minimalist Thank You for Support Merry Christmas Instagram Post (3) 1.png')",
-        'welcomepage': "url('./src/assets/mobile welcome bg.png')"
+        'homepage': "url('/assets/Beige and Red Minimalist Thank You for Support Merry Christmas Instagram Post (3) 1.png')",
+        'welcomepage': "url('/assets/mobile welcome bg.png')"
       },
       colors: {
         'red': '#BE1522',

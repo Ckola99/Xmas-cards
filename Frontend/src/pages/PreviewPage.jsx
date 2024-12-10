@@ -49,7 +49,7 @@ const PreviewPage = () => {
 			{/* Created card preview */}
 			<div
 				id="card-preview"
-				className="min-h-[480px] min-w-[300px]"
+				className="min-h-[560px] min-w-[300px]"
 				style={{
 					background: background
 						? `no-repeat center/cover ${background}`
@@ -68,7 +68,7 @@ const PreviewPage = () => {
 								"4.png"
 							) && "pt-[260px] px-5 text-red" } ${ background?.includes("2.png") && " text-white " } `}
 					>
-						{joke.text} <span className="block text-amber-500">- from {name}</span>
+						{joke?.text} <span className="block text-amber-500">- from {name}</span>
 				</p>
 			</div>
 
