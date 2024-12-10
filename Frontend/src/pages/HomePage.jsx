@@ -134,7 +134,7 @@ const HomePage = () => {
 			</div>
 
 			<div
-				className="min-w-[300px] mx-auto min-h-[480px] bg-black mt-3 relative flex flex-col items-center justify-center"
+				className="min-w-[300px] mx-auto min-h-[560px] bg-black mt-3 relative flex flex-col items-center justify-center"
 				style={{
 					background: selectedBackground
 						? selectedBackground.includes(
