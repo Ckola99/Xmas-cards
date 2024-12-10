@@ -61,15 +61,22 @@ const HomePage = () => {
 			setTimeout(() => {
 				newAudio.pause();
 				setIsPlaying(false);
-			}, 60000);
+			}, 90000);
 		}
 	};
 
 	const handleButtonClick = () => {
+
+		const cardData = {
+    			joke: currentJoke,
+    			background: selectedBackground,
+    			song: selectedSong,
+  		};
+
 		if (window.matchMedia("(min-width: 768px)").matches) {
-			navigate("/preview"); // Navigate to Preview page for md+ screens
+			navigate("/preview", { state: cardData } ); // Navigate to Preview page for md+ screens
 		} else {
-			navigate("/donate"); // Navigate to Donations page for smaller screens
+			navigate("/donate", { state: cardData }); // Navigate to Donations page for smaller screens
 		}
 	};
 

@@ -9,7 +9,7 @@ const WelcomePage = () => {
 
   const onSubmit = (data) => {
     // Save data to local storage
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    window.localStorage.setItem("userInfo", JSON.stringify(data));
 
     // Redirect to the Home page
     navigate("/home");
