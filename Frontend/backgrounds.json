@@ -1,0 +1,22 @@
+[
+	{
+		"id": 1,
+		"type": "image",
+		"value": "/backgrounds/1.png"
+	},
+	{
+		"id": 2,
+		"type": "image",
+		"value": "/backgrounds/2.png"
+	},
+	{
+		"id": 3,
+		"type": "image",
+		"value": "/backgrounds/3.png"
+	},
+	{
+		"id": 4,
+		"type": "image",
+		"value": "/backgrounds/4.png"
+	}
+]
