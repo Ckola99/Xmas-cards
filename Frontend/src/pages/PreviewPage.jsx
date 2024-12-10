@@ -29,14 +29,15 @@ const PreviewPage = () => {
 
 	// Share the card via a link
 	const handleShare = () => {
-		const shareUrl = `${
-			window.location.origin
-		}/shared?data=${encodeURIComponent(
-			JSON.stringify({ joke, background, song })
-		)}`;
-		navigator.clipboard.writeText(shareUrl);
+		const cardData = {
+    			joke,
+    			background,
+    			song,
+  		};
 
-		alert("Link copied to clipboard!");
+		navigate("/shared", {
+      			state: { cardData },
+    		});
 	};
 
 	return (
@@ -69,7 +70,7 @@ const PreviewPage = () => {
 								&& "text-white text-center "
 						} pt-[240px] mb-5 px-5 font-bold text-center ${ background?.includes(
 								"3.png"
-							) && "pt-[180px] px-8 text-white" } ${ background?.includes(
+							) && "pt-[300px] px-8 text-white" } ${ background?.includes(
 								"4.png"
 							) && "pt-[260px] px-5 text-red" } ${ background?.includes("2.png") && " text-white " } `}
 					>
