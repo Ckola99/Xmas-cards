@@ -64,7 +64,7 @@ const PreviewPage = () => {
 								&& "text-white text-center "
 						} pt-[240px] mb-5 px-5 font-bold text-center ${ background?.includes(
 								"3.png"
-							) && "pt-[160px] px-8 text-white" } ${ background?.includes(
+							) && "pt-[180px] px-8 text-white" } ${ background?.includes(
 								"4.png"
 							) && "pt-[260px] px-5 text-red" } ${ background?.includes("2.png") && " text-white " } `}
 					>
