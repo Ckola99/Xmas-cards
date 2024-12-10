@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import * as htmlToImage from "html-to-image";
 import { saveAs } from "file-saver";
+import html2canvas from "html2canvas";
 
 const PreviewPage = () => {
 	const navigate = useNavigate();
@@ -16,16 +17,13 @@ const PreviewPage = () => {
 
 	// Download the card as a PNG
 	const handleDownloadPNG = () => {
-		const cardElement = document.getElementById("card-preview");
-		const img = new Image();
-		img.src = background;
-		img.onload = () => {
-			htmlToImage.toPng(cardElement).then((dataUrl) => {
-				saveAs(dataUrl, "xmas-card.png");
-			});
-		}
-
-	};
+  const cardElement = document.getElementById("card-preview");
+  html2canvas(cardElement).then((canvas) => {
+    canvas.toBlob((blob) => {
+      saveAs(blob, "xmas-card.png");
+    });
+  });
+};
 
 	// Share the card via a link
 	const handleShare = () => {
@@ -90,6 +88,7 @@ const PreviewPage = () => {
 					Save PNG
 				</button>
 				<button
+					disabled
 					onClick={handleShare}
 					className="w-full text-white border border-white font-bold rounded-full p-2"
 				>
