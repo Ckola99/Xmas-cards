@@ -76,7 +76,7 @@ const PreviewPage = () => {
 				</p>
 			</div>
 
-			<p className="text-red font-bold w-full text-center"> Please note downloads may take a second, sharing the card includes jingle (in maintanence).</p>
+			<p className="text-red font-bold w-full text-center"> Please note downloads may take a second, sharing the card includes your jingle.</p>
 
 			{/* Action buttons */}
 			<div className="flex w-full gap-2 mt-5">
