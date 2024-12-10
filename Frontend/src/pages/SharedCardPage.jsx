@@ -16,6 +16,10 @@ const SharedCardPage = () => {
 		const data = searchParams.get("data");
 		if (data) {
 			setCardData(JSON.parse(decodeURIComponent(data)));
+			console.log(
+				"Card Data:",
+				JSON.parse(decodeURIComponent(data))
+			);
 		}
 	}, [searchParams]);
 

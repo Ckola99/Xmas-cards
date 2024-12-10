@@ -17,9 +17,14 @@ const PreviewPage = () => {
 	// Download the card as a PNG
 	const handleDownloadPNG = () => {
 		const cardElement = document.getElementById("card-preview");
-		htmlToImage.toPng(cardElement).then((dataUrl) => {
-			saveAs(dataUrl, "xmas-card.png");
-		});
+		const img = new Image();
+		img.src = background;
+		img.onload = () => {
+			htmlToImage.toPng(cardElement).then((dataUrl) => {
+				saveAs(dataUrl, "xmas-card.png");
+			});
+		}
+
 	};
 
 	// Share the card via a link
