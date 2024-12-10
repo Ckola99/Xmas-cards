@@ -88,9 +88,8 @@ const PreviewPage = () => {
 					Save PNG
 				</button>
 				<button
-					disabled
 					onClick={handleShare}
-					className="hidden w-full text-white border border-white font-bold rounded-full p-2"
+					className="w-full text-white border border-white font-bold rounded-full p-2"
 				>
 					Share Card
 				</button>

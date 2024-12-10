@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import jokes from "../../jokes.json"; // Import jokes data
 import backgrounds from "../../backgrounds.json"; // Import backgrounds data
-import songs from "../../songs.json"; // Import songs data
+import { useSelector, useDispatch } from "react-redux";
+import { selectSongs } from "../features/songs/songsSlice";
+
+
 
 const SharedCardPage = () => {
 	const [searchParams] = useSearchParams(); // Access URL query parameters
@@ -12,16 +15,15 @@ const SharedCardPage = () => {
 	const navigate = useNavigate(); // Navigate between routes
 	const location = useLocation(); // Access navigation state data
 	const { joke, background, song } = location.state || {}; // Destructure state data if passed
+	const songs = useSelector(selectSongs);
+
 
 	const userData = window.localStorage.getItem("userInfo"); // Retrieve user info from localStorage
 	const parsedData = userData ? JSON.parse(userData) : null; // Parse user data (if exists)
 	const name = parsedData ? parsedData.preferredName : null; // Get user's preferred name
 
-	console.log(backgrounds)
-	console.log(cardData?.background)
 
-	const backgroundInUse = backgrounds.map(b => cardData?.background === b.value)
-	console.log("in use:", backgroundInUse)
+
 
 
 
@@ -30,23 +32,23 @@ const SharedCardPage = () => {
 		// If data is passed via navigation state, prioritize it
 		if (location.state?.cardData) {
 			setCardData(location.state.cardData);
-			console.log(location.state.cardData)
 		} else {
 			// Extract query parameters from URL
 			const jokeId = searchParams.get("jokeId");
 			const backgroundId = searchParams.get("backgroundId");
 			const songId = searchParams.get("songId");
+			const savedName = searchParams.get("savedName")
 
 			// Map IDs to corresponding data from JSON files
-			const joke = jokes.find((j) => j.id === jokeId);
+			const joke = jokes.find((j) => j.id === Number(jokeId));
 			const background = backgrounds.find(
-				(b) => b.id === backgroundId
-			)?.url;
-			const song = songs.find((s) => s.id === songId);
+				(b) => b.id === Number(backgroundId)
+			);
+			const song = songs.find((s) => s.id === Number(songId));
 
 			// Set the `cardData` state with the retrieved data
-			if (joke || background || song) {
-				setCardData({ joke, background, song });
+			if (joke || background || song || savedName ) {
+				setCardData({ joke, background, song, savedName });
 			}
 		}
 	}, [location.state, searchParams]);
@@ -81,13 +83,16 @@ const SharedCardPage = () => {
 	// 4. Generate a shareable link with query parameters
 	const generateShareableLink = () => {
 
-		const backgroundInUse = backgrounds.find(b => cardData?.background === b.value)
+		const strippedBackground = cardData?.background.replace(/^url\(|\)$/g, "");
+		const backgroundInUse = backgrounds.find(b => strippedBackground === b.value);
+
 		const queryParams = new URLSearchParams({
 			jokeId: cardData?.joke?.id,
+			backgroundId: backgroundInUse.id,
 			songId: cardData?.song?.id,
+			savedName: name
 		}).toString();
 
-		console.log(backgroundInUse)
 		console.log('link', queryParams)
 
 		return `${window.location.origin}/shared?${queryParams}`;
@@ -114,37 +119,39 @@ const SharedCardPage = () => {
 				id="card-preview"
 				className="min-h-[480px] min-w-[300px] flex items-center justify-center p-3"
 				style={{
-					background: cardData?.background
-						? `no-repeat center/cover ${cardData.background}`
-						: "black", // Default to black if no background
+    					background: cardData?.background
+        					? (typeof cardData.background === 'object'
+            						? `no-repeat center/cover url(${cardData.background.value})`
+            						: `no-repeat center/cover ${cardData.background}`)
+        					: "black", // Default to black if no background
 				}}
 			>
 				{cardData?.joke && (
 					<p
 						className={`${
-							cardData?.background?.includes(
+							background?.includes(
 								"1.png"
 							) &&
 							"text-white text-center"
 						} pt-[140px] mb-5 px-5 font-bold text-center ${
-							cardData?.background?.includes(
+							background?.includes(
 								"3.png"
 							) &&
 							"pt-[160px] px-8 text-white"
 						} ${
-							cardData?.background?.includes(
+							background?.includes(
 								"4.png"
 							) &&
 							"pt-[260px] px-5 text-red"
 						} ${
-							cardData?.background?.includes(
+							background?.includes(
 								"2.png"
 							) && " text-white "
 						} `}
 					>
 						{cardData.joke.text}{" "}
 						<span className="block text-amber-500">
-							- from {name}
+							- from {name || cardData.savedName }
 						</span>
 					</p>
 				)}
