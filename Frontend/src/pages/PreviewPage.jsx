@@ -70,7 +70,7 @@ const PreviewPage = () => {
 								"3.png"
 							) && "pt-[300px] px-8 text-white" } ${ background?.includes(
 								"4.png"
-							) && "pt-[260px] px-5 text-red" } ${ background?.includes("2.png") && " text-white " } `}
+							) && "pt-[330px] px-5 text-red" } ${ background?.includes("2.png") && " text-white " } `}
 					>
 						{joke?.text} <span className="block text-amber-500">- from {name}</span>
 				</p>

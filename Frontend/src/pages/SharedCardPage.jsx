@@ -142,7 +142,7 @@ const SharedCardPage = () => {
 							background?.includes(
 								"4.png"
 							) &&
-							"pt-[260px] px-5 text-red"
+							"pt-[300px] px-5 text-red"
 						} ${
 							background?.includes(
 								"2.png"
