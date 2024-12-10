@@ -73,6 +73,12 @@ const HomePage = () => {
     			song: selectedSong,
   		};
 
+		if (audio) {
+			audio.pause(); // Pause current audio
+			setAudio(null);
+			setIsPlaying(false);
+		}
+
 		if (window.matchMedia("(min-width: 768px)").matches) {
 			navigate("/preview", { state: cardData } ); // Navigate to Preview page for md+ screens
 		} else {
