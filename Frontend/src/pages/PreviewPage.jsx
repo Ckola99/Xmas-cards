@@ -76,7 +76,7 @@ const PreviewPage = () => {
 				</p>
 			</div>
 
-			<p className="text-red font-bold w-full text-center"> Please note downloads may take a second, sharing the card includes jingle.</p>
+			<p className="text-red font-bold w-full text-center"> Please note downloads may take a second, sharing the card includes jingle (in maintanence).</p>
 
 			{/* Action buttons */}
 			<div className="flex w-full gap-2 mt-5">
@@ -90,7 +90,7 @@ const PreviewPage = () => {
 				<button
 					disabled
 					onClick={handleShare}
-					className="w-full text-white border border-white font-bold rounded-full p-2"
+					className="hidden w-full text-white border border-white font-bold rounded-full p-2"
 				>
 					Share Card
 				</button>
