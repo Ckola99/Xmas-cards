@@ -4,6 +4,7 @@ import jokes from "../../jokes.json"; // Import jokes data
 import backgrounds from "../../backgrounds.json"; // Import backgrounds data
 import { useSelector, useDispatch } from "react-redux";
 import { selectSongs } from "../features/songs/songsSlice";
+import { IoIosPlay, IoIosPause } from "react-icons/io";
 
 
 
@@ -114,7 +115,7 @@ const SharedCardPage = () => {
 		<div className="bg-black min-h-screen flex flex-col items-center justify-center text-white p-10">
 			<button
 				onClick={() => navigate(-1)} // Go back to the previous page
-				className="text-red font-bold underline absolute top-2 left-3 hover:opacity-50 md:text-2xl"
+				className="text-red font-bold underline absolute top-2 left-3 hover:opacity-50 text-2xl"
 			>
 				&lt;
 			</button>
@@ -170,15 +171,19 @@ const SharedCardPage = () => {
 			{/* Play/Pause Music Button */}
 			<button
 				onClick={handleTogglePlay}
-				className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded mt-5"
+				className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-4 rounded mt-5 flex items-center gap-2"
 			>
-				{isPlaying ? "Pause Music" : "Play Music"}
+				{isPlaying ? "Pause Jingle" : "Play Jingle"} {isPlaying ? (
+						<IoIosPause className="text-red mt-1"/>
+					) : (
+						<IoIosPlay className="text-red mt-1"/>
+					)}
 			</button>
 
 			{/* Display currently playing song */}
 			{cardData?.song && (
 				<p className="mt-1 text-sm">
-					Now playing: {cardData.song.name}
+					{isPlaying ? "Now Playing:" : 'Jingle loded:' } {cardData.song.name}
 				</p>
 			)}
 

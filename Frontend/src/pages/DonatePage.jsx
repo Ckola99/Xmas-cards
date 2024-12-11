@@ -23,7 +23,7 @@ const DonatePage = () => {
 			{/* Go Back Button */}
       <button
         onClick={() => navigate(-1)} // Go back to the previous page
-        className="text-red font-bold underline absolute top-2 left-3 hover:opacity-50"
+        className="text-red font-bold underline absolute top-2 left-3 hover:opacity-50 text-2xl"
       >
         &lt;
       </button>

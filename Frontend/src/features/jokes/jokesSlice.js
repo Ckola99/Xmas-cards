@@ -2,8 +2,9 @@ import { createSlice } from '@reduxjs/toolkit';
 import jokes from '../../../jokes.json';
 
 const initialState = {
-	allJokes : jokes,
-	currentJoke: null
+	allJokes: jokes,
+	currentJoke: null,
+	categoryFilter: 'all'
 }
 
 // console.log("Imported jokes: ", jokes)
@@ -14,14 +15,24 @@ const jokesSlice = createSlice({
 	initialState,
 	reducers: {
 		generateRandomJoke: (state) => {
-			const randomIndex = Math.floor(Math.random() * state.allJokes.length);
-  			const joke = JSON.parse(JSON.stringify(state.allJokes[randomIndex])); // Convert to plain object
-  			state.currentJoke = joke;
-  			console.log("Current joke:", state.currentJoke); // Now logs a plain object
+			const filteredJokes = state.categoryFilter === 'all'
+				? state.allJokes
+				: state.allJokes.filter(joke => joke.category === state.categoryFilter);
+
+			console.log("Filtered jokes: ", filteredJokes.map(joke => ({ ...joke })));
+
+			const randomIndex = Math.floor(Math.random() * filteredJokes.length);
+			const joke = { ...filteredJokes[randomIndex] }; // Copy joke without proxies
+
+			state.currentJoke = joke;
 		},
+		setCategoryFilter: (state, action) => {
+			state.categoryFilter = action.payload;
+		}
 	},
 });
 
-export const { generateRandomJoke } = jokesSlice.actions;
+export const { generateRandomJoke, setCategoryFilter } = jokesSlice.actions;
 export const selectCurrentJoke = (state) => state.jokes.currentJoke;
+export const selectCategoryFilter = (state) => state.jokes.categoryFilter;
 export default jokesSlice.reducer;

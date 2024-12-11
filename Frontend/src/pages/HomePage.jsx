@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { selectSongs, selectSong } from "../features/songs/songsSlice";
 import { selectBackground } from "../features/backgrounds/backgroundSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,9 +6,11 @@ import { IoIosPlay, IoIosPause } from "react-icons/io";
 import {
 	selectCurrentJoke,
 	generateRandomJoke,
+	setCategoryFilter,
+	selectCategoryFilter,
 } from "../features/jokes/jokesSlice";
 import { useNavigate } from "react-router-dom";
-import christmasTree from '../assets/christmas-tree-35.png';
+import christmasTree from "../assets/christmas-tree-35.png";
 
 const HomePage = () => {
 	const songs = useSelector(selectSongs);
@@ -16,9 +18,11 @@ const HomePage = () => {
 	const dispatch = useDispatch();
 	const [audio, setAudio] = useState(null);
 	const [isPlaying, setIsPlaying] = useState(false); // Track audio playing state
+	const categoryFilter = useSelector(selectCategoryFilter);
 	const backgrounds = useSelector(
 		(state) => state.backgrounds.availableBackgrounds
 	);
+	const categories = ["Engineering", "Dad", "Christmas"];
 	const selectedBackground = useSelector(
 		(state) => state.backgrounds.selectedBackground
 	);
@@ -67,12 +71,11 @@ const HomePage = () => {
 	};
 
 	const handleButtonClick = () => {
-
 		const cardData = {
-    			joke: currentJoke,
-    			background: selectedBackground,
-    			song: selectedSong,
-  		};
+			joke: currentJoke,
+			background: selectedBackground,
+			song: selectedSong,
+		};
 
 		if (audio) {
 			audio.pause(); // Pause current audio
@@ -80,16 +83,38 @@ const HomePage = () => {
 			setIsPlaying(false);
 		}
 
-		if (window.matchMedia("(min-width: 768px)").matches) {
-			if(selectedBackground && currentJoke) navigate("/preview", { state: cardData } ); // Navigate to Preview page for md+ screens
+		if (window.innerWidth >= 768) {
+			if (selectedBackground && currentJoke)
+				navigate("/preview", { state: cardData }); // Navigate to Preview page for md+ screens
 		} else {
-			if(selectedBackground && currentJoke) navigate("/donate", { state: cardData } ); // Navigate to Donations page for smaller screens
+			if (selectedBackground && currentJoke)
+				navigate("/donate", { state: cardData }); // Navigate to Donations page for smaller screens
+		}
+	};
+
+	const handleCategoryChange = (category) => {
+		dispatch(setCategoryFilter(category)); // Dispatch the selected category
+
+		if (category !== currentJoke.category) {
+			dispatch(generateRandomJoke());
 		}
 	};
 
 	return (
 		<div className="bg-homepage min-h-screen bg-cover bg-center py-3 px-5">
-			<div className="relative w-full"> <button className="absolute left-0 underline text-red hover:text-opacity-50 font-bold text-2xl" onClick={() => navigate(-1)}> &lt; </button> <h1 className="font-bold text-center text-xl mb-3">Card Generator</h1> </div>
+			<div className="relative w-full">
+				{" "}
+				<button
+					className="absolute left-0 underline text-red hover:text-opacity-50 font-bold text-2xl"
+					onClick={() => navigate(-1)}
+				>
+					{" "}
+					&lt;{" "}
+				</button>{" "}
+				<h1 className="font-bold text-center text-xl mb-3">
+					Card Generator
+				</h1>{" "}
+			</div>
 			<div className="p-2 border border-red rounded-full w-[85%] mx-auto flex items-center md:w-[523px]">
 				<select
 					value={
@@ -106,7 +131,7 @@ const HomePage = () => {
 				>
 					<option
 						value=""
-						className="w-full focus:none"
+						className="w-full focus:none font-bold"
 					>
 						Select a Song
 					</option>
@@ -142,89 +167,201 @@ const HomePage = () => {
 
 			<div className="md:grid md:grid-cols-3">
 				<div className="hidden md:flex md:flex-col md:w-[306px] md:h-[414px] items-center">
-					<p className="md:w-[308px] bg-white rounded-lg font-bold p-3 shadow-md text-[14px] mt-5">Before you share, would you like to make a difference by donating to Look Forward Creativity centre and children’s haven’s raffle competition. Your contribution supports a great cause, and you could win exciting prizes!</p>
-					<img src={christmasTree} alt="Christmas Tree" />
-					<a href="https://www.flexibreaks.co.za/Raffle/CompetitionList" target="_blank" rel="noopener noreferrer"><button  className=" bg-amber-500 text-white font-bold w-full border rounded-full p-2 mb-4 md:w-[280px]"> Donate </button> </a>
+					<p className="md:w-[308px] bg-white rounded-lg font-bold p-3 shadow-md text-[14px] mt-5">
+						This Christmas make a difference
+						by donating to Look Forward
+						Creativity centre and children’s
+						haven’s raffle competition. Your
+						contribution supports a great
+						cause, and you could win
+						exciting prizes!
+					</p>
+					<img
+						src={christmasTree}
+						alt="Christmas Tree"
+					/>
+					<a
+						href="https://www.flexibreaks.co.za/Raffle/CompetitionList"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						<button className=" bg-amber-500 text-white font-bold w-full border rounded-full p-2 mb-4 md:w-[280px]">
+							{" "}
+							Donate{" "}
+						</button>{" "}
+					</a>
 				</div>
 
 				<div className="md:flex md:flex-col">
 					<div
-				className="min-w-[300px] mx-auto min-h-[580px] bg-black mt-3 relative flex flex-col items-center justify-center max-w-[400px] max-h-[780px]"
-				style={{
-					background: selectedBackground
-						? selectedBackground.includes(
-								"url"
-						  )
-							? `no-repeat center/cover ${selectedBackground}`
-							: selectedBackground
-						: "black",
-				}}
-			>
-				{currentJoke ? (
-					<p
-						className={`${
-							selectedBackground?.includes(
-								"1.png"
-							)
-								&& "text-white text-center "
-						} mt-[100px] mb-5 px-5 font-bold text-center ${ selectedBackground?.includes(
-								"3.png"
-							) && "mt-[160px] px-8 text-white" } ${ selectedBackground?.includes(
-								"4.png"
-							) && "mt-[250px] px-8 text-red" } ${ selectedBackground?.includes("2.png") && " text-white " } ${ selectedBackground?.includes("5.png") && " text-white text-shadow-glow" }`}
+						className="min-w-[300px] mx-auto min-h-[580px] bg-black mt-3 relative flex flex-col items-center justify-center max-w-[400px] max-h-[780px]"
+						style={{
+							background: selectedBackground
+								? selectedBackground.includes(
+										"url"
+								  )
+									? `no-repeat center/cover ${selectedBackground}`
+									: selectedBackground
+								: "black",
+						}}
 					>
-						{currentJoke.text}
-					</p>
-				) : (
-					<p
-						onClick={handleGenerateJoke}
-						className={`${
-							selectedBackground?.includes(
-								"1.png"
-							)
-								? "cursor-pointer"
-								: ""
-						} ${selectedBackground?.includes("4.png") ? " mt-[200px] px-3 font-bold" : "" } text-white text-center`}
+						{currentJoke ? (
+							<p
+								className={`${
+									selectedBackground?.includes(
+										"1.png"
+									) &&
+									"text-white text-center "
+								} mt-[100px] mb-5 px-5 font-bold text-center ${
+									selectedBackground?.includes(
+										"3.png"
+									) &&
+									"mt-[160px] px-8 text-white"
+								} ${
+									selectedBackground?.includes(
+										"4.png"
+									) &&
+									"mt-[250px] px-8 text-red"
+								} ${
+									selectedBackground?.includes(
+										"2.png"
+									) &&
+									" text-white "
+								} ${
+									selectedBackground?.includes(
+										"5.png"
+									) &&
+									" text-white text-shadow-glow"
+								}`}
+							>
+								{
+									currentJoke.text
+								}
+							</p>
+						) : (
+							<p
+								onClick={
+									handleGenerateJoke
+								}
+								className={`${
+									selectedBackground?.includes(
+										"1.png"
+									)
+										? "cursor-pointer"
+										: ""
+								} ${
+									selectedBackground?.includes(
+										"4.png"
+									)
+										? " mt-[200px] px-3 font-bold"
+										: ""
+								} px-3 text-white text-center`}
+							>
+								{!currentJoke
+									? `Click here to generate new joke and select a template ${
+											window.innerWidth >=
+											768
+												? "to the right"
+												: "below"
+									  }`
+									: ""}
+							</p>
+						)}
+						{currentJoke && (
+							<div className="flex flex-col items-center">
+								<button
+									onClick={
+										handleGenerateJoke
+									}
+									className="bg-white p-2 rounded-full w-[120px]"
+								>
+									New
+									Joke?{" "}
+								</button>
+								<div className="text-center mt-5">
+									<h3 className="font-bold text-amber-500 mb-1 ">
+										Filter
+										jokes
+									</h3>
+									{categories.map(
+										(
+											c,
+											index
+										) => (
+											<button
+												onClick={() =>
+													handleCategoryChange(
+														c
+													)
+												}
+												className={`text-[11px] font-bold rounded-full py-1 px-2 m-1 transition
+            											${
+													categoryFilter === c
+													? "bg-amber-500 bg-opacity-75 text-white" // Selected category styles
+													: "bg-white text-black" // Unselected category styles
+												}`}
+												key={
+													index
+												}
+											>
+												{
+													c
+												}{" "}
+												Jokes
+											</button>
+										)
+									)}
+								</div>
+							</div>
+						)}
+					</div>
+					<button
+						onClick={handleButtonClick}
+						className={` ${
+							selectedBackground &&
+							currentJoke
+								? ""
+								: "bg-opacity-50 disabled"
+						} hidden md:block md:mt-5 bg-red h-[36px] w-[244px] mx-auto rounded-full text-white text-[14px] flex items-center justify-center hover:bg-opacity-50`}
 					>
-						{ !currentJoke ? "Click here to generate new joke and select a template below" : ""}
-					</p>
-				)}
-				{currentJoke && (<button onClick={handleGenerateJoke} className="bg-white p-2 rounded-full" >New Joke? </button>)}
-			</div>
-			<button onClick={handleButtonClick} className={` ${selectedBackground && currentJoke ? '' : 'bg-opacity-50 disabled'} hidden md:block md:mt-5 bg-red h-[36px] w-[244px] mx-auto rounded-full text-white text-[14px] flex items-center justify-center hover:bg-opacity-50`}>
-				Preview & Share
-			</button>
+						Preview & Share
+					</button>
 				</div>
 
-			<div>
-				<h2 className="text-center font-bold">Templates</h2>
-				<div className=" my-3 flex mx-auto justify-between md:grid md:grid-cols-2 md:gap-2 md:max-w-[225px]">
-				{backgrounds.map((bg) => (
-					<button
-						key={bg.id}
-						onClick={() =>
-							handleBackgroundChange(
-								bg.type ===
-									"image"
-									? `url(${bg.value})`
-									: bg.value
-							)
-						}
-						className="w-[50px] h-[70px] border-2 border-white md:w-[100px] md:h-[160px]"
-						style={{
-							background:
-								bg.type ===
-								"image"
-									? `url(${bg.value}) no-repeat center/cover`
-									: bg.value,
-						}}
-					></button>
-				))}
-			</div>
-			</div>
+				<div>
+					<h2 className="text-center font-bold">
+						Templates
+					</h2>
+					<div className=" my-3 flex mx-auto justify-between md:grid md:grid-cols-2 md:gap-2 md:max-w-[225px]">
+						{backgrounds.map((bg) => (
+							<button
+								key={bg.id}
+								onClick={() =>
+									handleBackgroundChange(
+										bg.type ===
+											"image"
+											? `url(${bg.value})`
+											: bg.value
+									)
+								}
+								className="w-[50px] h-[70px] border-2 border-white md:w-[100px] md:h-[160px]"
+								style={{
+									background:
+										bg.type ===
+										"image"
+											? `url(${bg.value}) no-repeat center/cover`
+											: bg.value,
+								}}
+							></button>
+						))}
+					</div>
+				</div>
 			</div>
 
-			<button onClick={handleButtonClick} className="md:hidden bg-red h-[36px] w-[244px] mx-auto rounded-full text-white text-[14px] flex items-center justify-center hover:bg-opacity-50">
+			<button
+				onClick={handleButtonClick}
+				className="md:hidden bg-red h-[36px] w-[244px] mx-auto rounded-full text-white text-[14px] flex items-center justify-center hover:bg-opacity-50"
+			>
 				Preview & Share
 			</button>
 		</div>
