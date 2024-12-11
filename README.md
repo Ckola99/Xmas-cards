@@ -111,11 +111,11 @@ In future updates, I aim to:
 ### Useful resources
 
 - [React Redux Docs](https://redux.js.org/) - Helped streamline global state management.
-- [React Router Docs]() - This resource was instrumental in understanding routing and link generation.
+- [React Router Docs] (https://reactrouter.com/en/main.) - This resource was instrumental in understanding routing and link generation.
 
 ## Author
 
 - Twitter - [@KolaDev01](https://twitter.com/KolaDev01)
-- LinkedIn - [ChristopherKola](https://reactrouter.com/en/main.)
+- LinkedIn - [ChristopherKola](https://www.linkedin.com/in/christopher-k-b64b35119/)
 
 ---
