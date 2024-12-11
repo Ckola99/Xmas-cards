@@ -149,7 +149,7 @@ const HomePage = () => {
 
 				<div className="md:flex md:flex-col">
 					<div
-				className="min-w-[300px] mx-auto min-h-[580px] bg-black mt-3 relative flex flex-col items-center justify-center md:max-w-[450px] md:max-h-[620px]"
+				className="min-w-[300px] mx-auto min-h-[580px] bg-black mt-3 relative flex flex-col items-center justify-center max-w-[400px] max-h-[780px]"
 				style={{
 					background: selectedBackground
 						? selectedBackground.includes(
@@ -171,7 +171,7 @@ const HomePage = () => {
 								"3.png"
 							) && "mt-[160px] px-8 text-white" } ${ selectedBackground?.includes(
 								"4.png"
-							) && "mt-[250px] px-5 text-red" } ${ selectedBackground?.includes("2.png") && " text-white " } ${ selectedBackground?.includes("5.png") && " text-white text-shadow-glow" }`}
+							) && "mt-[250px] px-8 text-red" } ${ selectedBackground?.includes("2.png") && " text-white " } ${ selectedBackground?.includes("5.png") && " text-white text-shadow-glow" }`}
 					>
 						{currentJoke.text}
 					</p>

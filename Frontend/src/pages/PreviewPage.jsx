@@ -47,12 +47,12 @@ const PreviewPage = () => {
 			>
 				&lt;
 			</button>
-			<h1 className="font-coming-soon text-white font-bold text-2xl md:text-3xl text-center w-full mt-3 mb-3">
+			<h1 className="font-coming-soon text-white font-bold text-2xl md:text-3xl text-center w-full mt-3 mb-5">
 				Here's your Xmas Card!
 			</h1>
 
 			{/* Created card preview */}
-			<div className="md:grid md:grid-cols-2 md:max-w-[80%] md:mx-auto md:place-items-center">
+			<div className="md:grid md:grid-cols-2 md:max-w-[95%] md:mx-auto md:place-items-center mb-2">
 				<div className="hidden md:flex md:flex-col md:w-[306px] md:h-[414px] md:mb-[130px]">
 					<p className="md:w-[308px] bg-white rounded-lg font-bold p-3 shadow-md text-[14px]">Before you share, would you like to make a difference by donating to Look Forward Creativity centre and children’s haven’s raffle competition. Your contribution supports a great cause, and you could win exciting prizes!</p>
 					<img src={christmasTree} alt="Christmas Tree" />
@@ -60,7 +60,7 @@ const PreviewPage = () => {
 				</div>
 				<div
 				id="card-preview"
-				className="min-h-[560px] min-w-[300px] md:max-w-[350px] md:max-h-[600px]"
+				className="min-h-[560px] min-w-[300px] max-w-[450px] md:h-[650px]"
 				style={{
 					background: background
 						? `no-repeat center/cover ${background}`
@@ -77,7 +77,7 @@ const PreviewPage = () => {
 								"3.png"
 							) && "pt-[300px] px-8 text-white" } ${ background?.includes(
 								"4.png"
-							) && "pt-[330px] px-5 text-red" } ${ background?.includes("2.png") && " text-white " } ${ background?.includes("5.png") && " text-white text-shadow-glow" }`}
+							) && "pt-[330px] px-5 text-red md:pt-[360px]" } ${ background?.includes("2.png") && " text-white " } ${ background?.includes("5.png") && " text-white text-shadow-glow" }`}
 					>
 						{joke?.text} <span className="block text-amber-500">- from {name}</span>
 				</p>

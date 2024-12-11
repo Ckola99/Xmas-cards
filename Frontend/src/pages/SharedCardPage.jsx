@@ -107,6 +107,9 @@ const SharedCardPage = () => {
 	};
 
 	// JSX for rendering the page
+
+	console.log(cardData?.background.value)
+	console.log("shared", background)
 	return (
 		<div className="bg-black min-h-screen flex flex-col items-center justify-center text-white p-10">
 			<button
@@ -123,7 +126,7 @@ const SharedCardPage = () => {
 			{/* Card Preview */}
 			<div
 				id="card-preview"
-				className="h-[480px] w-[300px] flex items-center justify-center p-3 max-w-[400px] max-h-[800px]"
+				className="min-h-[480px] min-w-[300px] flex items-center justify-center p-3 md:h-[600px] md:w-[420px]"
 				style={{
     					background: cardData?.background
         					? (typeof cardData.background === 'object'
@@ -135,25 +138,26 @@ const SharedCardPage = () => {
 				{cardData?.joke && (
 					<p
 						className={`${
-							background?.includes(
-								"1.png"
-							) &&
-							"text-white text-center"
-						} pt-[140px] mb-5 px-5 font-bold text-center ${
-							background?.includes(
-								"3.png"
-							) &&
-							"pt-[160px] px-8 text-white"
-						} ${
-							background?.includes(
-								"4.png"
-							) &&
-							"pt-[300px] px-5 text-red"
-						} ${
-							background?.includes(
-								"2.png"
-							) && " text-white "
-						} `}
+    (typeof cardData?.background === 'object'
+      ? cardData.background.value
+      : cardData?.background
+    )?.includes("1.png") && "text-white text-center"
+  } mb-5 px-5 font-bold text-center ${
+    (typeof cardData?.background === 'object'
+      ? cardData.background.value
+      : cardData?.background
+    )?.includes("3.png") && "pt-[160px] px-8 text-white"
+  } ${
+    (typeof cardData?.background === 'object'
+      ? cardData.background.value
+      : cardData?.background
+    )?.includes("4.png") && "pt-[360px] px-5 text-red"
+  } ${
+    (typeof cardData?.background === 'object'
+      ? cardData.background.value
+      : cardData?.background
+    )?.includes("2.png") && " text-white "
+  }`}
 					>
 						{cardData.joke.text}{" "}
 						<span className="block text-amber-500">
