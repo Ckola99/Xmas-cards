@@ -30,14 +30,14 @@ Users can:
 ### Screenshot
 
 #### Card template selection page
-![homepage with editor](./src/assets/homepage.png)
+![homepage with editor](./Frontend/src/assets/homepage.png)
 
 
 #### Shared Card Page
-![shared card page](./src/assets/share%20cardpage.png)
+![shared card page](./Frontend/src/assets/share%20cardpage.png)
 
 #### Final card preview
-![Card preview screenshot](./src/assets/screencapture-localhost-5173-2024-12-11-19_40_29%20(1).png)
+![Card preview screenshot](./Frontend/src/assets/screencapture-localhost-5173-2024-12-11-19_40_29%20(1).png)
 
 ### Links
 - Live App: [Xmas Cards](https://xmas-cards.vercel.app/shared)
