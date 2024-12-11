@@ -81,7 +81,7 @@ const SharedCardPage = () => {
 		}
 	};
 
-	// 4. Generate a shareable link with query parameters
+	
 	const generateShareableLink = () => {
 
 		const strippedBackground = cardData?.background.replace(/^url\(|\)$/g, "");
@@ -94,12 +94,9 @@ const SharedCardPage = () => {
 			savedName: name
 		}).toString();
 
-		console.log('link', queryParams)
-
 		return `${window.location.origin}/shared?${queryParams}`;
 	};
 
-	// 5. Copy the shareable link to the clipboard
 	const handleShare = () => {
 		const link = generateShareableLink();
 		navigator.clipboard.writeText(link).then(() => {
@@ -108,9 +105,6 @@ const SharedCardPage = () => {
 	};
 
 	// JSX for rendering the page
-
-	console.log(cardData?.background.value)
-	console.log("shared", background)
 	return (
 		<div className="bg-black min-h-screen flex flex-col items-center justify-center text-white p-10">
 			<button

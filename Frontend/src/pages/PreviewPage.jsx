@@ -18,13 +18,13 @@ const PreviewPage = () => {
 
 	// Download the card as a PNG
 	const handleDownloadPNG = () => {
-  const cardElement = document.getElementById("card-preview");
-  html2canvas(cardElement).then((canvas) => {
-    canvas.toBlob((blob) => {
-      saveAs(blob, "xmas-card.png");
-    });
-  });
-};
+  		const cardElement = document.getElementById("card-preview");
+  		html2canvas(cardElement).then((canvas) => {
+    			canvas.toBlob((blob) => {
+      				saveAs(blob, "xmas-card.png");
+    			});
+  		});
+	};
 
 	// Share the card via a link
 	const handleShare = () => {
