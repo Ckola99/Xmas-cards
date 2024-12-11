@@ -16,15 +16,16 @@ const WelcomePage = () => {
   };
 
   return (
-    <div className="bg-welcomepage min-h-screen bg-cover bg-center py-3 px-10 flex items-center justify-center">
+    <div className="bg-welcomepage md:bg-desktop min-h-screen bg-cover bg-center bg-no-repeat py-3 px-10 flex items-center justify-center">
       <form
         onSubmit={handleSubmit(onSubmit)}
+        className="md:max-w-[460px] md:flex md:flex-col"
       >
-        <img src={snowman} alt="snowman" className="-mb-[100px]" />
+        <img src={snowman} alt="snowman" className="-mb-[100px] md:max-w-[624px] md:max-h-[664px]" />
         <h2 className="text-2xl font-bold mb-4 text-center w-full font-coming-soon">Xmas Cards!</h2>
 
         {/* Full Name Input */}
-        <div className="mb-4 w-full">
+        <div className="mb-4 w-full md:max-w-[454px]">
           <input
             type="text"
             id="fullName"
@@ -36,7 +37,7 @@ const WelcomePage = () => {
         </div>
 
         {/* Preferred Name Input */}
-        <div className="mb-4 w-full">
+        <div className="mb-4 w-full md:max-w-[454px]">
           <input
             type="text"
             id="preferredName"
@@ -50,7 +51,7 @@ const WelcomePage = () => {
         {/* Submit Button */}
         <button
           type="submit"
-          className="bg-red text-white font-bold px-4 py-2 rounded-full hover:bg-opacity-50 w-full"
+          className="bg-red text-white font-bold px-4 py-2 rounded-full hover:bg-opacity-50 w-full md:max-w-[454px]"
         >
           Create Card!
         </button>

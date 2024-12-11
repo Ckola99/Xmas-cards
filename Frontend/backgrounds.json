@@ -18,5 +18,10 @@
 		"id": 4,
 		"type": "image",
 		"value": "/backgrounds/4.png"
+	},
+	{
+		"id": 5,
+		"type": "image",
+		"value": "/backgrounds/5.png"
 	}
 ]

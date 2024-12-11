@@ -109,6 +109,12 @@ const SharedCardPage = () => {
 	// JSX for rendering the page
 	return (
 		<div className="bg-black min-h-screen flex flex-col items-center justify-center text-white p-10">
+			<button
+				onClick={() => navigate(-1)} // Go back to the previous page
+				className="text-red font-bold underline absolute top-2 left-3 hover:opacity-50 md:text-2xl"
+			>
+				&lt;
+			</button>
 			{/* Header */}
 			<h1 className="text-xl font-bold mb-5 font-coming-soon">
 				Your Xmas Card 🎄
@@ -117,7 +123,7 @@ const SharedCardPage = () => {
 			{/* Card Preview */}
 			<div
 				id="card-preview"
-				className="min-h-[480px] min-w-[300px] flex items-center justify-center p-3"
+				className="h-[480px] w-[300px] flex items-center justify-center p-3 max-w-[400px] max-h-[800px]"
 				style={{
     					background: cardData?.background
         					? (typeof cardData.background === 'object'
@@ -151,7 +157,7 @@ const SharedCardPage = () => {
 					>
 						{cardData.joke.text}{" "}
 						<span className="block text-amber-500">
-							- from {name || cardData.savedName }
+							- from {cardData.savedName || name }
 						</span>
 					</p>
 				)}

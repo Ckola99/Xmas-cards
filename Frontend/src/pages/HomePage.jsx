@@ -8,6 +8,7 @@ import {
 	generateRandomJoke,
 } from "../features/jokes/jokesSlice";
 import { useNavigate } from "react-router-dom";
+import christmasTree from '../assets/christmas-tree-35.png';
 
 const HomePage = () => {
 	const songs = useSelector(selectSongs);
@@ -80,16 +81,16 @@ const HomePage = () => {
 		}
 
 		if (window.matchMedia("(min-width: 768px)").matches) {
-			navigate("/preview", { state: cardData } ); // Navigate to Preview page for md+ screens
+			if(selectedBackground && currentJoke) navigate("/preview", { state: cardData } ); // Navigate to Preview page for md+ screens
 		} else {
-			navigate("/donate", { state: cardData }); // Navigate to Donations page for smaller screens
+			if(selectedBackground && currentJoke) navigate("/donate", { state: cardData } ); // Navigate to Donations page for smaller screens
 		}
 	};
 
 	return (
 		<div className="bg-homepage min-h-screen bg-cover bg-center py-3 px-5">
-			<div className="relative w-full"> <button className="absolute left-0 underline text-red hover:text-opacity-50 font-bold" onClick={() => navigate(-1)}> &lt; </button> <h1 className="font-bold text-center text-xl mb-3">Card Generator</h1> </div>
-			<div className="p-2 border border-red rounded-full w-[85%] mx-auto flex items-center">
+			<div className="relative w-full"> <button className="absolute left-0 underline text-red hover:text-opacity-50 font-bold text-2xl" onClick={() => navigate(-1)}> &lt; </button> <h1 className="font-bold text-center text-xl mb-3">Card Generator</h1> </div>
+			<div className="p-2 border border-red rounded-full w-[85%] mx-auto flex items-center md:w-[523px]">
 				<select
 					value={
 						selectedSong
@@ -139,8 +140,16 @@ const HomePage = () => {
 				</button>
 			</div>
 
-			<div
-				className="min-w-[300px] mx-auto min-h-[560px] bg-black mt-3 relative flex flex-col items-center justify-center"
+			<div className="md:grid md:grid-cols-3">
+				<div className="hidden md:flex md:flex-col md:w-[306px] md:h-[414px] items-center">
+					<p className="md:w-[308px] bg-white rounded-lg font-bold p-3 shadow-md text-[14px] mt-5">Before you share, would you like to make a difference by donating to Look Forward Creativity centre and children’s haven’s raffle competition. Your contribution supports a great cause, and you could win exciting prizes!</p>
+					<img src={christmasTree} alt="Christmas Tree" />
+					<a href="https://www.flexibreaks.co.za/Raffle/CompetitionList" target="_blank" rel="noopener noreferrer"><button  className=" bg-amber-500 text-white font-bold w-full border rounded-full p-2 mb-4 md:w-[280px]"> Donate </button> </a>
+				</div>
+
+				<div className="md:flex md:flex-col">
+					<div
+				className="min-w-[300px] mx-auto min-h-[580px] bg-black mt-3 relative flex flex-col items-center justify-center md:max-w-[450px] md:max-h-[620px]"
 				style={{
 					background: selectedBackground
 						? selectedBackground.includes(
@@ -162,7 +171,7 @@ const HomePage = () => {
 								"3.png"
 							) && "mt-[160px] px-8 text-white" } ${ selectedBackground?.includes(
 								"4.png"
-							) && "mt-[250px] px-5 text-red" } ${ selectedBackground?.includes("2.png") && " text-white " } `}
+							) && "mt-[250px] px-5 text-red" } ${ selectedBackground?.includes("2.png") && " text-white " } ${ selectedBackground?.includes("5.png") && " text-white text-shadow-glow" }`}
 					>
 						{currentJoke.text}
 					</p>
@@ -177,13 +186,19 @@ const HomePage = () => {
 								: ""
 						} ${selectedBackground?.includes("4.png") ? " mt-[200px] px-3 font-bold" : "" } text-white text-center`}
 					>
-						{ !currentJoke ? "Click here to generate new joke and select a background below" : ""}
+						{ !currentJoke ? "Click here to generate new joke and select a template below" : ""}
 					</p>
 				)}
 				{currentJoke && (<button onClick={handleGenerateJoke} className="bg-white p-2 rounded-full" >New Joke? </button>)}
 			</div>
+			<button onClick={handleButtonClick} className={` ${selectedBackground && currentJoke ? '' : 'bg-opacity-50 disabled'} hidden md:block md:mt-5 bg-red h-[36px] w-[244px] mx-auto rounded-full text-white text-[14px] flex items-center justify-center hover:bg-opacity-50`}>
+				Preview & Share
+			</button>
+				</div>
 
-			<div className="my-3 flex mx-auto justify-between">
+			<div>
+				<h2 className="text-center font-bold">Templates</h2>
+				<div className=" my-3 flex mx-auto justify-between md:grid md:grid-cols-2 md:gap-2 md:max-w-[225px]">
 				{backgrounds.map((bg) => (
 					<button
 						key={bg.id}
@@ -195,7 +210,7 @@ const HomePage = () => {
 									: bg.value
 							)
 						}
-						className="w-[50px] h-[70px] border-2 border-white"
+						className="w-[50px] h-[70px] border-2 border-white md:w-[100px] md:h-[160px]"
 						style={{
 							background:
 								bg.type ===
@@ -206,8 +221,10 @@ const HomePage = () => {
 					></button>
 				))}
 			</div>
+			</div>
+			</div>
 
-			<button onClick={handleButtonClick} className="bg-red h-[36px] w-[244px] mx-auto rounded-full text-white text-[14px] flex items-center justify-center hover:bg-opacity-50">
+			<button onClick={handleButtonClick} className="md:hidden bg-red h-[36px] w-[244px] mx-auto rounded-full text-white text-[14px] flex items-center justify-center hover:bg-opacity-50">
 				Preview & Share
 			</button>
 		</div>
