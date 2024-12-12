@@ -54,7 +54,6 @@ const SharedCardPage = () => {
 		}
 	}, [location.state, searchParams]);
 
-	// 2. Manage audio playback
 	useEffect(() => {
 		if (cardData?.song?.filePath) {
 			const newAudio = new Audio(cardData.song.filePath); // Create new Audio object
@@ -69,7 +68,7 @@ const SharedCardPage = () => {
 		}
 	}, [cardData?.song]);
 
-	// 3. Handle play/pause of the audio
+
 	const handleTogglePlay = () => {
 		if (audio) {
 			if (isPlaying) {
@@ -81,7 +80,7 @@ const SharedCardPage = () => {
 		}
 	};
 
-	
+
 	const generateShareableLink = () => {
 
 		const strippedBackground = cardData?.background.replace(/^url\(|\)$/g, "");
@@ -103,6 +102,8 @@ const SharedCardPage = () => {
 			alert("Link copied to clipboard!");
 		});
 	};
+
+	const data = typeof cardData?.background === 'object' ? cardData.background.value : cardData?.background;
 
 	// JSX for rendering the page
 	return (
@@ -133,26 +134,15 @@ const SharedCardPage = () => {
 				{cardData?.joke && (
 					<p
 						className={`${
-    (typeof cardData?.background === 'object'
-      ? cardData.background.value
-      : cardData?.background
-    )?.includes("1.png") && "text-white text-center"
-  } mb-5 px-5 font-bold text-center ${
-    (typeof cardData?.background === 'object'
-      ? cardData.background.value
-      : cardData?.background
-    )?.includes("3.png") && "pt-[160px] px-8 text-white"
-  } ${
-    (typeof cardData?.background === 'object'
-      ? cardData.background.value
-      : cardData?.background
-    )?.includes("4.png") && "pt-[360px] px-5 text-red"
-  } ${
-    (typeof cardData?.background === 'object'
-      ? cardData.background.value
-      : cardData?.background
-    )?.includes("2.png") && " text-white "
-  }`}
+    							data?.includes("1.png") && "text-white text-center"
+  								} mb-5 px-5 font-bold text-center ${
+
+    							data?.includes("3.png") && "pt-[160px] px-8 text-white"
+  							} ${
+    							data?.includes("4.png") && "pt-[240px] md:pt-[280px] px-5 text-red"
+  							} ${
+    							data?.includes("2.png") && " text-white "
+  							}`}
 					>
 						{cardData.joke.text}{" "}
 						<span className="block text-amber-500">

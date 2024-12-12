@@ -19,10 +19,8 @@ const jokesSlice = createSlice({
 				? state.allJokes
 				: state.allJokes.filter(joke => joke.category === state.categoryFilter);
 
-			console.log("Filtered jokes: ", filteredJokes.map(joke => ({ ...joke })));
-
 			const randomIndex = Math.floor(Math.random() * filteredJokes.length);
-			const joke = { ...filteredJokes[randomIndex] }; // Copy joke without proxies
+			const joke = { ...filteredJokes[randomIndex] };
 
 			state.currentJoke = joke;
 		},
